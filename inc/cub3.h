@@ -39,4 +39,12 @@ void	ft_create_map(t_map *map);
 void	ft_join_buffer(t_map *map, char *line);
 void	ft_set_directions(t_map *map, int i, int checker);
 
+//lines
+int		ft_line_lenght(char *line);
+char	*modificate_line(char *line);
+
+//parse
+void	ft_init_map(t_map *map, char *path);
+
+
 #endif
