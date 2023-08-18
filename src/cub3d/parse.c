@@ -100,7 +100,16 @@ void	ft_join_map(t_map *map, char *line)
 	map->map = new_map;
 }
 
-int main() {
-	ft_printf("Hello World!");
+int main(int ac, char **av) {
+	t_map	*map;
+
+	if (ac != 2)
+	{
+		printf("Error\nWrong number of arguments");
+		exit(1);
+	}
+	map = malloc(sizeof(t_map));
+	ft_init_map(&map);
+
 	return (0);
 }
