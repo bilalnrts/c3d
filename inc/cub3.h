@@ -21,6 +21,7 @@ enum	e_direction
 typedef struct s_map
 {
 	char	**map;
+	char	**buffer;
 	char	*no_texture;
 	char	*so_texture;
 	char	*we_texture;
@@ -32,5 +33,10 @@ typedef struct s_map
 	int		map_height;
 	int		fd;
 }				t_map;
+
+//map_creation
+void	ft_create_map(t_map *map);
+void	ft_join_buffer(t_map *map, char *line);
+void	ft_set_directions(t_map *map, int i, int checker);
 
 #endif
