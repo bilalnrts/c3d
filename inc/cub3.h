@@ -7,6 +7,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <stdio.h>
 # include <math.h>
 
 enum	e_direction
@@ -29,6 +30,7 @@ typedef struct s_map
 	enum e_direction	start_position;
 	int		map_width;
 	int		map_height;
+	int		fd;
 }				t_map;
 
 #endif
