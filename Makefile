@@ -13,14 +13,22 @@ RM			=	rm -f
 
 CUB_DIR		=	cub3d/
 MAND_FILES	=	parse map_creation
+
+UTIL_DIR	=	util/
+UTIL_FILES	=	lines
+
 # BONUS_DIR	=	bonus/
 # BONUS_FILES	=
 
 SRC_FILES	=	$(addprefix $(CUB_DIR), $(MAND_FILES))
+U_FILES	=	$(addprefix $(UTIL_DIR), $(UTIL_FILES))
 # SRC_BFILES	=	$(addprefix $(BONUS_DIR), $(BONUS_FILES))
 
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+
+UTIL		=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(U_FILES)))
+UTIL_OBJ	=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(U_FILES)))
 
 # BSRC		=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_BFILES)))
 # BOBJ		=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_BFILES)))
@@ -29,10 +37,10 @@ OBJF		=	.cache_exists
 
 all:			$(NAME)
 
-$(NAME):		$(OBJ) $(OBJF)
+$(NAME):		$(OBJ) $(UTIL_OBJ) $(OBJF)
 				@make -C $(LIBFT)
 				@cp lib/libft/libft.a .
-				@$(CC) $(CFLAGS) $(OBJ) $(HEADER) libft.a -o $(NAME)
+				@$(CC) $(CFLAGS) $(OBJ) $(UTIL_OBJ) $(HEADER) libft.a -o $(NAME)
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(OBJF)
 				@$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
@@ -40,6 +48,7 @@ $(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(OBJF)
 $(OBJF):
 				@mkdir -p $(OBJ_DIR)
 				@mkdir -p $(OBJ_DIR)$(CUB_DIR)
+				@mkdir -p $(OBJ_DIR)$(UTIL_DIR)
 				@touch $(OBJF)
 
 clean:
