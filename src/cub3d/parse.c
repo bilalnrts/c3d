@@ -13,14 +13,11 @@ void	ft_init_map(t_map *map, char *path)
 	map->ea_texture = NULL;
 	map->f_color_rgb = NULL;
 	map->c_color_rgb = NULL;
-	map->start_position = NULL;
 	ft_create_map(map);
 }
 
 int main(int ac, char **av) {
 	t_map	*map;
-	char	*line;
-	int		fd;
 
 	if (ac != 2)
 	{
