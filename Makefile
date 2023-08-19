@@ -12,7 +12,7 @@ RM			=	rm -f
 # OPENGL		=	-framework OpenGL -framework AppKit
 
 CUB_DIR		=	cub3d/
-MAND_FILES	=	parse
+MAND_FILES	=	parse map_creation
 # BONUS_DIR	=	bonus/
 # BONUS_FILES	=
 
