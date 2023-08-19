@@ -53,6 +53,6 @@ char	*modificate_line(char *line)
 		i++;
 	}
 	new_line[j] = '\0';
-	free(line);
+	free(line); // buffer'ı freelerken burası sıkıntı çıkarabilir
 	return (new_line);
 }
