@@ -26,9 +26,18 @@ void	ft_set_directions(t_map *map, int i, int checker)
 	map -> map_height = i;
 }
 
-void	ft_get_map(t_map *map, int i, int checker)
+void	ft_get_map(t_map *map, int i)
 {
-
+	int		j;
+	map -> map = malloc(sizeof(char *) * (map -> map_height - i + 1));
+	j = 0;
+	while (map -> buffer[i])
+	{
+		map -> map[j] = modificate_line(map -> buffer[i]);
+		i++;
+		j++;
+	}
+	map -> map[j] = NULL;	//map artık hazır
 }
 
 void	ft_find_start_map(t_map *map, int i, int checker)
@@ -49,8 +58,11 @@ void	ft_find_start_map(t_map *map, int i, int checker)
 		free(line);
 		i++;
 	}
+	while (map -> buffer[i] && ft_strlen(map -> buffer[i]) == 1 && map -> buffer[i][0] == '\n')
+		i++;
 	// checker'ın 6 olması lazım daha sonra kontrol et
-	ft_get_map(map, i, checker);
+	// C ya da F map dosyasının en altındaysa checker yine 6 olacak !!
+	ft_get_map(map, i);
 }
 
 void	ft_create_map(t_map *map)
@@ -70,7 +82,7 @@ void	ft_create_map(t_map *map)
 		line = get_next_line(map->fd);
 	}
 	ft_set_directions(map, 0, 0);
-	ft_get_map(map, 0, 0);
+	ft_find_start_map(map, 0, 0);
 }
 
 void	ft_join_buffer(t_map *map, char *line)
