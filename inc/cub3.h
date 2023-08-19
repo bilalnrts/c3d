@@ -26,8 +26,8 @@ typedef struct s_map
 	char	*so_texture;
 	char	*we_texture;
 	char	*ea_texture;
-	char	*f_color_rgb;
-	char	*c_color_rgb;
+	char	*f_color_rgb; // check valid color
+	char	*c_color_rgb; // check valid color
 	enum e_direction	start_position;
 	int		map_width;
 	int		map_height;
