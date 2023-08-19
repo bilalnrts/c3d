@@ -5,7 +5,7 @@ void	ft_set_directions(t_map *map, int i, int checker)
 	while (map -> buffer[i])
 	{
 		if (!ft_strncmp(map -> buffer[i], "SO ", 3) && ++checker)
-			map -> so_texture = ft_strdup(map -> buffer[i] + 3);
+			map -> so_texture = ft_strdup(map -> buffer[i] + 3); // FAZLADAN BOŞLUK VARSA SORUN ÇIKARIR - SPLIT İLE ÇÖZÜLEBİLİR
 		else if (ft_strncmp(map -> buffer[i], "NO ", 3) == 0 && ++checker) // LAN NİYE GİRMİYOR BU KOŞULA
 			map -> no_texture = ft_strdup(map -> buffer[i] + 3);
 		else if (!ft_strncmp(map -> buffer[i], "WE ", 3) && ++checker)
@@ -26,6 +26,33 @@ void	ft_set_directions(t_map *map, int i, int checker)
 	map -> map_height = i;
 }
 
+void	ft_get_map(t_map *map, int i, int checker)
+{
+
+}
+
+void	ft_find_start_map(t_map *map, int i, int checker)
+{
+	char	*line;
+
+	while (map -> buffer[i])
+	{
+		if (checker == 6)
+			break ;
+		line = ft_strtrim(map -> buffer[i], " \t");
+		if (ft_strchr(line, ' '))
+			line = ft_split(line, ' ')[0]; //leak maybe
+		else if (ft_strchr(line, '\t'))
+			line = ft_split(line, '\t')[0]; //leak maybe
+		if (line && (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2) || !ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1)))
+			checker++;
+		free(line);
+		i++;
+	}
+	// checker'ın 6 olması lazım daha sonra kontrol et
+	ft_get_map(map, i, checker);
+}
+
 void	ft_create_map(t_map *map)
 {
 	char	*line;
@@ -43,6 +70,7 @@ void	ft_create_map(t_map *map)
 		line = get_next_line(map->fd);
 	}
 	ft_set_directions(map, 0, 0);
+	ft_get_map(map, 0, 0);
 }
 
 void	ft_join_buffer(t_map *map, char *line)
