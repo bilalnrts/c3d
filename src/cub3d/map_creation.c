@@ -80,9 +80,11 @@ void	ft_create_map(t_map *map)
 		ft_join_buffer(map, line);
 		free(line); //maybe error !! check here later !!
 		line = get_next_line(map->fd);
-	}
+	} // close fd
 	ft_set_directions(map, 0, 0);
 	ft_find_start_map(map, 0, 0);
+	ft_check_valid_map(map);
+	printf("This is a valid map\n");
 }
 
 void	ft_join_buffer(t_map *map, char *line)
