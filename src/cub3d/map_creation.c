@@ -10,9 +10,9 @@ char	*ft_get_texture(char *line)
 	buffer = NULL;
 	line = ft_strtrim(line, " \t");
 	if (ft_strchr(line, ' '))
-		buffer = ft_split(line, ' '); //leak maybe
+		buffer = ft_split(line, ' ');
 	else if (ft_strchr(line, '\t'))
-		buffer = ft_split(line, '\t'); //leak maybe
+		buffer = ft_split(line, '\t');
 	if (buffer && buffer[1])
 	{
 		texture = ft_strdup(buffer[1]);
@@ -81,13 +81,18 @@ void	ft_find_start_map(t_map *map, int i, int checker)
 			line = ft_split(line, '\t')[0]; //leak maybe
 		if (line && (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2) || !ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1)))
 			checker++;
+		else if (line && ft_strlen(line) > 1 && (ft_strncmp(line, "NO", 2) || ft_strncmp(line, "SO", 2) || ft_strncmp(line, "WE", 2) || ft_strncmp(line, "EA", 2) || ft_strncmp(line, "F", 1) || ft_strncmp(line, "C", 1)))
+			break ;
 		free(line);
 		i++;
 	}
+	if (checker != 6)
+	{
+		ft_printf("Error\nThis map have invalid syntax");
+		exit(1); //leak maybe
+	}
 	while (map -> buffer[i] && ft_strlen(map -> buffer[i]) == 1 && map -> buffer[i][0] == '\n')
 		i++;
-	// checker'ın 6 olması lazım daha sonra kontrol et
-	// C ya da F map dosyasının en altındaysa checker yine 6 olacak !!
 	ft_get_map(map, i);
 }
 
