@@ -1,21 +1,47 @@
 #include "../../inc/cub3.h"
 
+char	*ft_get_texture(char *line)
+{
+	int		i;
+	char	**buffer;
+	char	*texture;
+
+	i = 0;
+	buffer = NULL;
+	line = ft_strtrim(line, " \t");
+	if (ft_strchr(line, ' '))
+		buffer = ft_split(line, ' '); //leak maybe
+	else if (ft_strchr(line, '\t'))
+		buffer = ft_split(line, '\t'); //leak maybe
+	if (buffer && buffer[1])
+	{
+		texture = ft_strdup(buffer[1]);
+		while (buffer[i])
+		{
+			free(buffer[i]);
+			i++;
+		}
+		free(buffer);
+		return (texture);
+	}
+	return (NULL);
+}
 void	ft_set_directions(t_map *map, int i, int checker)
 {
 	while (map -> buffer[i])
 	{
 		if (!ft_strncmp(map -> buffer[i], "SO ", 3) && ++checker)
-			map -> so_texture = ft_strdup(map -> buffer[i] + 3); // FAZLADAN BOŞLUK VARSA SORUN ÇIKARIR - SPLIT İLE ÇÖZÜLEBİLİR
-		else if (ft_strncmp(map -> buffer[i], "NO ", 3) == 0 && ++checker) // LAN NİYE GİRMİYOR BU KOŞULA
-			map -> no_texture = ft_strdup(map -> buffer[i] + 3);
+			map -> so_texture = ft_get_texture(map -> buffer[i]);
+		else if (ft_strncmp(map -> buffer[i], "NO ", 3) == 0 && ++checker)
+			map -> no_texture = ft_get_texture(map -> buffer[i]);
 		else if (!ft_strncmp(map -> buffer[i], "WE ", 3) && ++checker)
-			map -> we_texture = ft_strdup(map -> buffer[i] + 3);
+			map -> we_texture = ft_get_texture(map -> buffer[i]);
 		else if (!ft_strncmp(map -> buffer[i], "EA ", 3) && ++checker)
-			map -> ea_texture = ft_strdup(map -> buffer[i] + 3);
+			map -> ea_texture = ft_get_texture(map -> buffer[i]);
 		else if (!ft_strncmp(map -> buffer[i], "F ", 2) && ++checker)
-			map -> f_color_rgb = ft_strdup(map -> buffer[i] + 2);
+			map -> f_color_rgb = ft_get_texture(map -> buffer[i]);
 		else if (!ft_strncmp(map -> buffer[i], "C ", 2) && ++checker)
-			map -> c_color_rgb = ft_strdup(map -> buffer[i] + 2);
+			map -> c_color_rgb = ft_get_texture(map -> buffer[i]);
 		i++;
 	}
 	if (checker != 6)
@@ -85,6 +111,10 @@ void	ft_create_map(t_map *map)
 	ft_find_start_map(map, 0, 0);
 	ft_check_valid_map(map);
 	printf("This is a valid map\n");
+	printf("NO: %s", map -> no_texture);
+	printf("SO: %s", map -> so_texture);
+	printf("WE: %s", map -> we_texture);
+	printf("EA: %s", map -> ea_texture);
 }
 
 void	ft_join_buffer(t_map *map, char *line)
