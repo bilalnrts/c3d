@@ -42,7 +42,7 @@ void	ft_get_map(t_map *map, int i);
 void	ft_find_start_map(t_map *map, int i, int checker);
 
 //map_validation
-int		**ft_give_directions(int i);
+int		**ft_give_directions(int i, t_map *map);
 void	ft_check_walls(t_map *map, int i, int j);
 void	ft_check_valid_map(t_map *map);
 void	ft_is_there_enter_in_map(t_map *map);
@@ -50,6 +50,10 @@ void	ft_is_there_enter_in_map(t_map *map);
 //lines
 int		ft_line_lenght(char *line);
 char	*modificate_line(char *line);
+
+//free
+void	ft_free_map_buffer(t_map *map);
+void	ft_free_textures(t_map *map);
 
 //parse
 void	ft_init_map(t_map *map, char *path);
