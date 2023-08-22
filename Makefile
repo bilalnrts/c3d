@@ -15,7 +15,7 @@ CUB_DIR		=	cub3d/
 MAND_FILES	=	parse map_creation map_validation
 
 UTIL_DIR	=	util/
-UTIL_FILES	=	lines
+UTIL_FILES	=	lines free
 
 # BONUS_DIR	=	bonus/
 # BONUS_FILES	=
