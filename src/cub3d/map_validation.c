@@ -12,6 +12,7 @@ void	ft_is_there_enter_in_map(t_map *map)
 		if (map -> map[i][j] == '\n')
 		{
 			ft_printf("Error\nThere is an enter in the map");
+			ft_free_map_buffer(map);
 			exit(1); //leak maybe
 		}
 		i++;
@@ -49,9 +50,10 @@ void ft_check_walls(t_map *map, int i, int j)
 	if (i == 0 || i == map->map_height - 1 || j == 0 || j == ft_line_lenght(map->map[i]) - 1)
 	{
 		ft_printf("Error\nMap is not surrounded by walls");
+		ft_free_map_buffer(map);
 		exit(1);
 	}
-	directions = ft_give_directions(0); // memory leak !!!
+	directions = ft_give_directions(0, map); // memory leak !!!
 	direction = 0;
 	checker = 0;
 	while (direction < 4)
@@ -67,21 +69,30 @@ void ft_check_walls(t_map *map, int i, int j)
 		}
 		direction++;
 	}
+	i = 0;
+	while (directions[i])
+	{
+		free(directions[i]);
+		i++;
+	}
+	//free(directions);
 	if (checker != 4)
 	{
 		ft_printf("Error\nMap is not surrounded by walls");
+		ft_free_map_buffer(map);
 		exit(1);
 	}
 }
 
-int	**ft_give_directions(int i)
+int	**ft_give_directions(int i, t_map *map)
 {
 	int **directions;
 
 	directions = (int **)malloc(4 * sizeof(int *));
 	if (!directions)
 	{
-		printf("Bellek hatası! Yeterli bellek yok.\n");
+		printf("Memory Error!\n");
+		ft_free_map_buffer(map);
 		exit(1);
 	}
 	while (i < 4)
@@ -89,7 +100,8 @@ int	**ft_give_directions(int i)
 		directions[i] = (int *)malloc(2 * sizeof(int));
 		if (directions[i] == NULL)
 		{
-			printf("Bellek hatası! Yeterli bellek yok.\n");
+			printf("Memory Error!\n");
+			ft_free_map_buffer(map);
 			exit(1);
 		}
 		i++;
