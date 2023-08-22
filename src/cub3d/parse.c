@@ -16,6 +16,18 @@ void	ft_init_map(t_map *map, char *path)
 	ft_create_map(map);
 }
 
+void	ft_check_map_name(char *map_name)
+{
+	int	map_name_lenght;
+
+	map_name_lenght = ft_strlen(map_name);
+	if (ft_strncmp(map_name + map_name_lenght - 4, ".cub", 4))
+	{
+		printf("The map name is not valid !\nError !");
+		exit(1);
+	}
+}
+
 int main(int ac, char **av) {
 	t_map	*map;
 
@@ -24,8 +36,9 @@ int main(int ac, char **av) {
 		printf("Error\nWrong number of arguments");
 		exit(1);
 	}
+	ft_check_map_name(av[1]);
 	map = malloc(sizeof(t_map));
 	ft_init_map(map, av[1]);
-
+	free(map);
 	return (0);
 }
