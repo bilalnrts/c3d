@@ -36,18 +36,18 @@ void	ft_free_map_buffer(t_map *map)
 		}
 		free(map -> map);
 	}
-	// i = 0;
-	// if (map -> buffer)
-	// {
-	// 	if (map -> buffer[i])
-	// 	{
-	// 		while (map -> buffer[i])
-	// 		{
-	// 			free(map -> buffer[i]);
-	// 			i++;
-	// 		}
-	// 	}
-	// 	free(map -> buffer);
-	// }
+	i = 0;
+	if (map -> buffer)
+	{
+		if (map -> buffer[i])
+		{
+			while (map -> buffer[i])
+			{
+				free(map -> buffer[i]);
+				i++;
+			}
+		}
+		free(map -> buffer);
+	}
 	ft_free_textures(map);
 }

@@ -75,7 +75,7 @@ void ft_check_walls(t_map *map, int i, int j)
 		free(directions[i]);
 		i++;
 	}
-	//free(directions);
+	free(directions);
 	if (checker != 4)
 	{
 		ft_printf("Error\nMap is not surrounded by walls");

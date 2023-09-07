@@ -140,7 +140,7 @@ void	ft_create_map(t_map *map) // There is no leak here !
 	ft_set_directions(map, 0, 0);
 	ft_find_start_map(map, 0, 0);
 	ft_check_valid_map(map);
-	//ft_free_map_buffer(map);
+	ft_free_map_buffer(map);
 }
 
 void	ft_join_buffer(t_map *map, char *line) // There is no leak here !
