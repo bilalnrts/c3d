@@ -5,7 +5,7 @@ void	ft_set_player_position(t_map *map, char c, int x, int y)
 	if (map -> start_position != UNKNOWN)
 	{
 		printf("Error !\nThere must be only one player on the map !\n");
-		ft_free_map_buffer(map);
+		ft_free_all(map);
 		exit(1);
 	}
 	if (c == 'N')
@@ -44,7 +44,7 @@ void	ft_is_map_letters(t_map *map)
 			else
 			{
 				printf("Error !\nThere is an unrecognizable letter on the map !\n");
-				ft_free_map_buffer(map);
+				ft_free_all(map);
 				exit(1);
 			}
 		}
@@ -71,7 +71,7 @@ void	ft_check_player(t_map *map)
 	}
 }
 
-char	*ft_get_texture(char *line) // There is no leak here
+char	*ft_get_texture(char *line)
 {
 	int		i;
 	char	**buffer;
@@ -144,7 +144,7 @@ void	ft_set_directions(t_map *map, int i, int checker)
 	if (checker != 6)
 	{
 		ft_printf("Error\nWrong number of directions or FC colors");
-		ft_free_map_buffer(map);
+		ft_free_all(map);
 		exit(1);
 	}
 	map -> map_height = i;
@@ -157,7 +157,7 @@ void	ft_get_map(t_map *map, int i)
 	if (map -> map_height - i == 0)
 	{
 		printf("Error !\nThis is not playable map !");
-		//FREE MAP -> BUFFER FUNCTION
+		ft_free_buffer(map);
 		exit(1);
 	}
 	map -> map = malloc(sizeof(char *) * (map -> map_height - i + 1));
@@ -168,7 +168,7 @@ void	ft_get_map(t_map *map, int i)
 		i++;
 		j++;
 	}
-	map -> map[j] = NULL;	//map artık hazır
+	map -> map[j] = NULL;
 }
 
 char	*ft_seperate_line(char *line, char c)
@@ -216,7 +216,7 @@ void	ft_find_start_map(t_map *map, int i, int checker)
 	if (checker != 6)
 	{
 		ft_printf("Error\nThis map have invalid syntax");
-		ft_free_map_buffer(map);
+		ft_free_all(map);
 		exit(1);
 	}
 	while (map -> buffer[i] && ft_strlen(map -> buffer[i]) == 1 && map -> buffer[i][0] == '\n')
@@ -245,7 +245,7 @@ void	ft_create_map(t_map *map) // There is no leak here !
 	ft_set_directions(map, 0, 0);
 	ft_find_start_map(map, 0, 0);
 	ft_check_valid_map(map);
-	ft_free_map_buffer(map);
+	ft_free_all(map);
 }
 
 void	ft_join_buffer(t_map *map, char *line) // There is no leak here !

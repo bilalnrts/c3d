@@ -18,8 +18,26 @@ void	ft_free_textures(t_map *map)
 		close(map -> fd);
 }
 
+void	ft_free_buffer(t_map *map)
+{
+	int	i;
 
-void	ft_free_map_buffer(t_map *map)
+	i = 0;
+	if (map -> buffer)
+	{
+		if (map -> buffer[i])
+		{
+			while (map -> buffer[i])
+			{
+				free(map -> buffer[i]);
+				i++;
+			}
+		}
+		free(map -> buffer);
+	}
+}
+
+void	ft_free_map(t_map *map)
 {
 	int	i;
 
@@ -36,18 +54,11 @@ void	ft_free_map_buffer(t_map *map)
 		}
 		free(map -> map);
 	}
-	i = 0;
-	if (map -> buffer)
-	{
-		if (map -> buffer[i])
-		{
-			while (map -> buffer[i])
-			{
-				free(map -> buffer[i]);
-				i++;
-			}
-		}
-		free(map -> buffer);
-	}
+}
+
+void	ft_free_all(t_map *map)
+{
+	ft_free_map(map);
+	ft_free_buffer(map);
 	ft_free_textures(map);
 }

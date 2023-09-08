@@ -58,7 +58,9 @@ int		ft_line_lenght(char *line);
 char	*modificate_line(char *line);
 
 //free
-void	ft_free_map_buffer(t_map *map);
+void	ft_free_map(t_map *map);
+void	ft_free_buffer(t_map *map);
+void	ft_free_all(t_map *map);
 void	ft_free_textures(t_map *map);
 
 //parse
