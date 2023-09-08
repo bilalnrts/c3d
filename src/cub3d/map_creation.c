@@ -82,6 +82,13 @@ void	ft_set_directions(t_map *map, int i, int checker)
 void	ft_get_map(t_map *map, int i)
 {
 	int		j;
+
+	if (!map -> map_height - i)
+	{
+		printf("Error !\nThis is not playable map !");
+		//FREE MAP -> BUFFER FUNCTION
+		exit(1);
+	}
 	map -> map = malloc(sizeof(char *) * (map -> map_height - i + 1));
 	j = 0;
 	while (map -> buffer[i])
@@ -128,7 +135,10 @@ void	ft_find_start_map(t_map *map, int i, int checker)
 		if (line && (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2) || !ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1)))
 			checker++;
 		else if (line && ft_strlen(line) > 1 && (ft_strncmp(line, "NO", 2) || ft_strncmp(line, "SO", 2) || ft_strncmp(line, "WE", 2) || ft_strncmp(line, "EA", 2) || ft_strncmp(line, "F", 1) || ft_strncmp(line, "C", 1)))
+		{
+			free(line);
 			break ;
+		}
 		free(line);
 		i++;
 	}
@@ -136,7 +146,7 @@ void	ft_find_start_map(t_map *map, int i, int checker)
 	{
 		ft_printf("Error\nThis map have invalid syntax");
 		ft_free_map_buffer(map);
-		exit(1); //leak maybe
+		exit(1);
 	}
 	while (map -> buffer[i] && ft_strlen(map -> buffer[i]) == 1 && map -> buffer[i][0] == '\n')
 		i++;
