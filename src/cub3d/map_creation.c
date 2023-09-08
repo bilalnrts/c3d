@@ -28,28 +28,52 @@ char	*ft_get_texture(char *line) // There is no leak here
 	}
 	return (NULL);
 }
-void	ft_set_directions(t_map *map, int i, int checker) // There is no leak here
+
+int	ft_is_texture(char *t)
+{
+	char	*newT;
+	int		returnVal;
+
+	returnVal = 0;
+	newT = ft_strtrim(t, " \t");
+	if (!ft_strncmp(newT, "NO ", 3))
+		returnVal = 1;
+	else if (!ft_strncmp(newT, "SO ", 3))
+		returnVal = 2;
+	else if (!ft_strncmp(newT, "WE ", 3))
+		returnVal = 3;
+	else if (!ft_strncmp(newT, "EA ", 3))
+		returnVal = 4;
+	else if (!ft_strncmp(newT, "F ", 2))
+		returnVal = 5;
+	else if (!ft_strncmp(newT, "C ", 2))
+		returnVal = 6;
+	free(newT);
+	return (returnVal);
+}
+
+void	ft_set_directions(t_map *map, int i, int checker)
 {
 	while (map -> buffer[i])
 	{
-		if (!ft_strncmp(map -> buffer[i], "SO ", 3) && ++checker)
-			map -> so_texture = ft_get_texture(map -> buffer[i]);
-		else if (ft_strncmp(map -> buffer[i], "NO ", 3) == 0 && ++checker)
+		if (ft_is_texture(map -> buffer[i]) == 1 && ++checker)
 			map -> no_texture = ft_get_texture(map -> buffer[i]);
-		else if (!ft_strncmp(map -> buffer[i], "WE ", 3) && ++checker)
+		else if (ft_is_texture(map -> buffer[i]) == 2 && ++checker)
+			map -> so_texture = ft_get_texture(map -> buffer[i]);
+		else if (ft_is_texture(map -> buffer[i]) == 3 && ++checker)
 			map -> we_texture = ft_get_texture(map -> buffer[i]);
-		else if (!ft_strncmp(map -> buffer[i], "EA ", 3) && ++checker)
+		else if (ft_is_texture(map -> buffer[i]) == 4 && ++checker)
 			map -> ea_texture = ft_get_texture(map -> buffer[i]);
-		else if (!ft_strncmp(map -> buffer[i], "F ", 2) && ++checker)
+		else if (ft_is_texture(map -> buffer[i]) == 5 && ++checker)
 			map -> f_color_rgb = ft_get_texture(map -> buffer[i]);
-		else if (!ft_strncmp(map -> buffer[i], "C ", 2) && ++checker)
+		else if (ft_is_texture(map -> buffer[i]) == 6 && ++checker)
 			map -> c_color_rgb = ft_get_texture(map -> buffer[i]);
 		i++;
 	}
 	if (checker != 6)
 	{
 		ft_printf("Error\nWrong number of directions or FC colors");
-		ft_free_map_buffer(map); // maybe leak !!!
+		ft_free_map_buffer(map);
 		exit(1);
 	}
 	map -> map_height = i;
