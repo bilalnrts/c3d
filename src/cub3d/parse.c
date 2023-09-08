@@ -13,6 +13,7 @@ void	ft_init_map(t_map *map, char *path)
 	map->ea_texture = NULL;
 	map->f_color_rgb = NULL;
 	map->c_color_rgb = NULL;
+	map -> start_position = UNKNOWN;
 	ft_create_map(map);
 }
 

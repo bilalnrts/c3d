@@ -1,5 +1,76 @@
 #include "../../inc/cub3.h"
 
+void	ft_set_player_position(t_map *map, char c, int x, int y)
+{
+	if (map -> start_position != UNKNOWN)
+	{
+		printf("Error !\nThere must be only one player on the map !\n");
+		ft_free_map_buffer(map);
+		exit(1);
+	}
+	if (c == 'N')
+		map -> start_position = NORTH;
+	else if (c == 'S')
+		map -> start_position = SOUTH;
+	else if (c == 'W')
+		map -> start_position = WEST;
+	else if (c == 'E')
+		map -> start_position = EAST;
+	map -> player_x = x;
+	map -> player_y = y;
+
+}
+
+void	ft_is_map_letters(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map -> map && map -> map[i])
+	{
+		j = 0;
+		while (map -> map[i][j])
+		{
+			if (map -> map[i][j] == 'N'
+				|| map -> map[i][j] == 'S'
+				|| map -> map[i][j] == 'W'
+				|| map -> map[i][j] == 'E'
+				|| map -> map[i][j] == '0'
+				|| map -> map[i][j] == '1'
+				|| map -> map[i][j] == '2'
+				|| map -> map[i][j] == '\n')
+				j++;
+			else
+			{
+				printf("Error !\nThere is an unrecognizable letter on the map !\n");
+				ft_free_map_buffer(map);
+				exit(1);
+			}
+		}
+		i++;
+	}
+}
+
+void	ft_check_player(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map -> map && map -> map[i])
+	{
+		j = 0;
+		while (map -> map[i][j])
+		{
+			if (map -> map[i][j] == 'N' || map -> map[i][j] == 'S' || map -> map[i][j] == 'W' || map -> map[i][j] == 'E')
+				ft_set_player_position(map, map -> map[i][j], i, j);
+			j++;
+		}
+		i++;
+	}
+}
+
 char	*ft_get_texture(char *line) // There is no leak here
 {
 	int		i;
@@ -83,7 +154,7 @@ void	ft_get_map(t_map *map, int i)
 {
 	int		j;
 
-	if (!map -> map_height - i)
+	if (map -> map_height - i == 0)
 	{
 		printf("Error !\nThis is not playable map !");
 		//FREE MAP -> BUFFER FUNCTION

@@ -26,6 +26,7 @@ void	ft_check_valid_map(t_map *map)
 
 	i = 0;
 	ft_is_there_enter_in_map(map);
+	ft_is_map_letters(map);
 	while (map -> map[i])
 	{
 		j = 0;
@@ -37,6 +38,7 @@ void	ft_check_valid_map(t_map *map)
 		}
 		i++;
 	}
+	ft_check_player(map);
 }
 
 // 0'ları kontrol et 2 ya da 0 görmeden 1 görürsem problem yok.

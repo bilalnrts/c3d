@@ -12,6 +12,7 @@
 
 enum	e_direction
 {
+	UNKNOWN,
 	NORTH,
 	SOUTH,
 	WEST,
@@ -31,6 +32,8 @@ typedef struct s_map
 	enum e_direction	start_position;
 	int		map_width;
 	int		map_height;
+	int		player_x;
+	int		player_y;
 	int		fd;
 }				t_map;
 
@@ -40,12 +43,15 @@ void	ft_join_buffer(t_map *map, char *line);
 void	ft_set_directions(t_map *map, int i, int checker);
 void	ft_get_map(t_map *map, int i);
 void	ft_find_start_map(t_map *map, int i, int checker);
+void	ft_set_player_position(t_map *map, char c, int x, int y);
+void	ft_check_player(t_map *map);
 
 //map_validation
 int		**ft_give_directions(int i, t_map *map);
 void	ft_check_walls(t_map *map, int i, int j);
 void	ft_check_valid_map(t_map *map);
 void	ft_is_there_enter_in_map(t_map *map);
+void	ft_is_map_letters(t_map *map);
 
 //lines
 int		ft_line_lenght(char *line);
