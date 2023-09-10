@@ -32,6 +32,7 @@ typedef struct s_map
 	enum e_direction	start_position;
 	int		map_width;
 	int		map_height;
+	int		buffer_height;
 	int		player_x;
 	int		player_y;
 	int		fd;

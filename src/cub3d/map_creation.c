@@ -147,20 +147,21 @@ void	ft_set_directions(t_map *map, int i, int checker)
 		ft_free_all(map);
 		exit(1);
 	}
-	map -> map_height = i;
+	map -> buffer_height = i;
 }
 
 void	ft_get_map(t_map *map, int i)
 {
 	int		j;
 
-	if (map -> map_height - i == 0)
+	if (map -> buffer_height - i == 0)
 	{
 		printf("Error !\nThis is not playable map !");
 		ft_free_buffer(map);
 		exit(1);
 	}
-	map -> map = malloc(sizeof(char *) * (map -> map_height - i + 1));
+	map -> map_height = map -> buffer_height - i;
+	map -> map = malloc(sizeof(char *) * (map -> map_height + 1));
 	j = 0;
 	while (map -> buffer[i])
 	{

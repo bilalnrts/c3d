@@ -7,6 +7,7 @@ void	ft_init_map(t_map *map, char *path)
 	map->fd = open(path, O_RDONLY); //check if file exists
 	map->map_width = 0;
 	map->map_height = 0;
+	map->buffer_height = 0;
 	map->no_texture = NULL;
 	map->so_texture = NULL;
 	map->we_texture = NULL;
@@ -41,6 +42,6 @@ int main(int ac, char **av) {
 	map = malloc(sizeof(t_map));
 	ft_init_map(map, av[1]);
 	free(map);
-	system("leaks cub3d");
+	//system("leaks cub3d");
 	return (0);
 }
