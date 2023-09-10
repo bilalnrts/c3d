@@ -32,6 +32,8 @@ typedef struct s_map
 	enum e_direction	start_position;
 	int		map_width;
 	int		map_height;
+	int		max_width;
+	int		max_index;
 	int		buffer_height;
 	int		player_x;
 	int		player_y;
@@ -67,5 +69,7 @@ void	ft_free_textures(t_map *map);
 //parse
 void	ft_init_map(t_map *map, char *path);
 
+//set width
+void	ft_set_width(t_map *map);
 
 #endif
