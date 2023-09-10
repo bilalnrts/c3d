@@ -69,6 +69,12 @@ void	ft_check_player(t_map *map)
 		}
 		i++;
 	}
+	if (map -> start_position == UNKNOWN)
+	{
+		printf("Error !\nThere must be a player in the map !\n");
+		ft_free_all(map);
+		exit(1);
+	}
 }
 
 char	*ft_get_texture(char *line)
