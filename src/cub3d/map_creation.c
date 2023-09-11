@@ -86,7 +86,7 @@ char	*ft_get_texture(char *line)
 
 	i = 0;
 	buffer = NULL;
-	new_line = ft_strtrim(line, " \t");
+	new_line = ft_strtrim(line, " \t\n");
 	if (ft_strchr(new_line, ' '))
 		buffer = ft_split(new_line, ' ');
 	else if (ft_strchr(new_line, '\t'))
@@ -253,7 +253,7 @@ void	ft_create_map(t_map *map) // There is no leak here !
 	ft_find_start_map(map, 0, 0);
 	ft_check_valid_map(map);
 	ft_set_width(map);
-	//ft_free_all(map);
+	ft_free_all(map);
 }
 
 void	ft_join_buffer(t_map *map, char *line) // There is no leak here !
