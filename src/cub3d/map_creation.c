@@ -113,7 +113,7 @@ int	ft_is_texture(char *t)
 
 	returnVal = 0;
 	newT = ft_strtrim(t, " \t");
-	if (!ft_strncmp(newT, "NO ", 3))
+	if (!ft_strncmp(newT, "NO ", 3)) // if \t ???
 		returnVal = 1;
 	else if (!ft_strncmp(newT, "SO ", 3))
 		returnVal = 2;
@@ -129,6 +129,75 @@ int	ft_is_texture(char *t)
 	return (returnVal);
 }
 
+void	ft_is_rgb(char *str, t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+			i++;
+		else
+			ft_free_all_msg(map, "Error !\nColors must be numbers !\n");
+	}
+}
+
+void	ft_get_color(char *line, t_map *map) // F 255,255,255
+{
+	int		i;
+	char	**buffer;
+	char	*new_line;
+	char	**colors;
+
+	i = -1;
+	buffer = NULL;
+	new_line = ft_strtrim(line, " \t\n");
+	if (ft_strchr(new_line, ' '))
+		buffer = ft_split(new_line, ' ');
+	else if (ft_strchr(new_line, '\t'))
+		buffer = ft_split(new_line, '\t');
+	if (buffer && buffer[1])
+	{
+		colors = ft_split(buffer[1], ',');
+		while(colors[++i])
+			ft_is_rgb(colors[i], map);
+		if (i != 3)
+			ft_free_all_msg(map, "Error !\nColors must be rgb formatting !\n");
+		ft_set_colors(map, buffer, colors);
+	}
+	free(new_line);
+}
+
+void	ft_set_colors(t_map *map, char **buffer, char **colors)
+{
+	int	i;
+
+	if (buffer[0][0] == 'F')
+	{
+		map->f_color_rgb = malloc(sizeof(int) * 3);
+		map->f_color_rgb[0] = ft_atoi(colors[0]);
+		map->f_color_rgb[1] = ft_atoi(colors[1]);
+		map->f_color_rgb[2] = ft_atoi(colors[2]);
+	}
+	else if(buffer[0][0] == 'C')
+	{
+		map->c_color_rgb = malloc(sizeof(int) * 3);
+		map->c_color_rgb[0] = ft_atoi(colors[0]);
+		map->c_color_rgb[1] = ft_atoi(colors[1]);
+		map->c_color_rgb[2] = ft_atoi(colors[2]);
+	}
+	i = 0;
+	while (buffer[i] || colors[i])
+	{
+		if (buffer[i])
+			free(buffer[i]);
+		if (colors[i]) //leaks
+			free(colors[i]);
+		i++;
+	}
+}
+
 void	ft_set_directions(t_map *map, int i, int checker)
 {
 	while (map -> buffer[i])
@@ -142,9 +211,9 @@ void	ft_set_directions(t_map *map, int i, int checker)
 		else if (ft_is_texture(map -> buffer[i]) == 4 && ++checker)
 			map -> ea_texture = ft_get_texture(map -> buffer[i]);
 		else if (ft_is_texture(map -> buffer[i]) == 5 && ++checker)
-			map -> f_color_rgb = ft_get_texture(map -> buffer[i]);
+			ft_get_color(map -> buffer[i], map);	//map -> f_color_rgb = ft_get_texture(map -> buffer[i]); ft_get_color(map -> buffer[i]);
 		else if (ft_is_texture(map -> buffer[i]) == 6 && ++checker)
-			map -> c_color_rgb = ft_get_texture(map -> buffer[i]);
+			ft_get_color(map -> buffer[i], map);	//map -> c_color_rgb = ft_get_texture(map -> buffer[i]);
 		i++;
 	}
 	if (checker != 6)

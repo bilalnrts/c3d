@@ -62,3 +62,12 @@ void	ft_free_all(t_map *map)
 	ft_free_buffer(map);
 	ft_free_textures(map);
 }
+
+void	ft_free_all_msg(t_map *map, char *str)
+{
+	printf("%s", str);
+	ft_free_map(map);
+	ft_free_buffer(map);
+	ft_free_textures(map);
+	exit(1);
+}

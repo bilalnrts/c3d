@@ -27,8 +27,8 @@ typedef struct s_map
 	char	*so_texture;
 	char	*we_texture;
 	char	*ea_texture;
-	char	*f_color_rgb; // check valid color
-	char	*c_color_rgb; // check valid color
+	int		*f_color_rgb; // check valid color
+	int		*c_color_rgb; // check valid color
 	enum e_direction	start_position;
 	int		map_width;
 	int		map_height;
@@ -48,6 +48,9 @@ void	ft_get_map(t_map *map, int i);
 void	ft_find_start_map(t_map *map, int i, int checker);
 void	ft_set_player_position(t_map *map, char c, int x, int y);
 void	ft_check_player(t_map *map);
+void	ft_is_rgb(char *str, t_map *map);
+void	ft_get_color(char *line, t_map *map);
+void	ft_set_colors(t_map *map, char **buffer, char **colors);
 
 //map_validation
 int		**ft_give_directions(int i, t_map *map);
@@ -64,6 +67,7 @@ char	*modificate_line(char *line);
 void	ft_free_map(t_map *map);
 void	ft_free_buffer(t_map *map);
 void	ft_free_all(t_map *map);
+void	ft_free_all_msg(t_map *map, char *str);
 void	ft_free_textures(t_map *map);
 
 //parse

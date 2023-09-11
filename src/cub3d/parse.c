@@ -42,6 +42,6 @@ int main(int ac, char **av) {
 	map = malloc(sizeof(t_map));
 	ft_init_map(map, av[1]);
 	free(map);
-	//system("leaks cub3d");
+	system("leaks cub3d");
 	return (0);
 }
