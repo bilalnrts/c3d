@@ -12,7 +12,10 @@ int	ft_line_lenght(char *line)
 		if (line[i] == '\t')
 			total += 4;
 		else
-			total++;
+		{
+			if (line[i] != '\n')
+				total++;
+		}
 		i++;
 	}
 	return (total);
@@ -47,8 +50,11 @@ char	*modificate_line(char *line)
 		}
 		else
 		{
-			new_line[j] = line[i];
-			j++;
+			if (line[i] != '\n')
+			{
+				new_line[j] = line[i];
+				j++;
+			}
 		}
 		i++;
 	}

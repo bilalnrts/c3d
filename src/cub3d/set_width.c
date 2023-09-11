@@ -31,7 +31,7 @@ void	ft_fill(t_map *map, int i, int len)
 	int		j;
 
 	fill_len = map -> max_width - len;
-	new_line = malloc(fill_len + 1);
+	new_line = malloc(map -> max_width);
 	j = 0;
 	while (map -> map[i][j])
 	{
@@ -47,7 +47,6 @@ void	ft_fill(t_map *map, int i, int len)
 	new_line[j] = '\0';
 	free(map -> map[i]);
 	map -> map[i] = new_line;
-	printf("deneme : %s\n", map -> map[i]);
 }
 
 void	ft_set_width(t_map *map)

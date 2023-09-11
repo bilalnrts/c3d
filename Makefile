@@ -12,7 +12,7 @@ RM			=	rm -f
 # OPENGL		=	-framework OpenGL -framework AppKit
 
 CUB_DIR		=	cub3d/
-MAND_FILES	=	parse map_creation map_validation
+MAND_FILES	=	parse map_creation map_validation set_width
 
 UTIL_DIR	=	util/
 UTIL_FILES	=	lines free
