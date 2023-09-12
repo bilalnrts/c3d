@@ -70,11 +70,11 @@ void ft_check_walls(t_map *map, int i, int j)
 		direction++;
 	}
 	i = 0;
-	while (directions[i])
-	{
-		free(directions[i]);
-		i++;
-	}
+	// while (directions[i])
+	// {
+	// 	free(directions[i]);
+	// 	i++;
+	// }
 	free(directions);
 	if (checker != 4)
 	{
