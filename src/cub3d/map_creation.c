@@ -2,6 +2,8 @@
 
 void	ft_set_player_position(t_map *map, char c, int x, int y)
 {
+	map->player = malloc(sizeof(t_player));
+	ft_init_player(map);
 	if (map -> start_position != UNKNOWN)
 	{
 		printf("Error !\nThere must be only one player on the map !\n");
@@ -16,9 +18,8 @@ void	ft_set_player_position(t_map *map, char c, int x, int y)
 		map -> start_position = WEST;
 	else if (c == 'E')
 		map -> start_position = EAST;
-	map -> player_x = x;
-	map -> player_y = y;
-
+	map->player->y = 1.0 * x + 0.5;
+	map->player->x = 1.0 * y + 0.5;
 }
 
 void	ft_is_map_letters(t_map *map)
@@ -171,31 +172,21 @@ void	ft_get_color(char *line, t_map *map) // F 255,255,255
 
 void	ft_set_colors(t_map *map, char **buffer, char **colors)
 {
-	int	i;
-
+	// int	i;
+	// rgb color değerlerini böyle alıyoruz
 	if (buffer[0][0] == 'F')
-	{
-		map->f_color_rgb = malloc(sizeof(int) * 3);
-		map->f_color_rgb[0] = ft_atoi(colors[0]);
-		map->f_color_rgb[1] = ft_atoi(colors[1]);
-		map->f_color_rgb[2] = ft_atoi(colors[2]);
-	}
+		map->f_color_rgb = ft_atoi(colors[0]) << 16 | ft_atoi(colors[1]) << 8 | ft_atoi(colors[2]);
 	else if(buffer[0][0] == 'C')
-	{
-		map->c_color_rgb = malloc(sizeof(int) * 3);
-		map->c_color_rgb[0] = ft_atoi(colors[0]);
-		map->c_color_rgb[1] = ft_atoi(colors[1]);
-		map->c_color_rgb[2] = ft_atoi(colors[2]);
-	}
-	i = 0;
-	while (buffer[i] || colors[i])
-	{
-		if (buffer[i])
-			free(buffer[i]);
-		if (colors[i]) //leaks
-			free(colors[i]);
-		i++;
-	}
+		map->c_color_rgb = ft_atoi(colors[0]) << 16 | ft_atoi(colors[1]) << 8 | ft_atoi(colors[2]);
+	// i = 0;
+	// while (buffer[i] || colors[i]) // leak var diye yorum satırına aldım
+	// {
+	// 	if (buffer[i])
+	// 		free(buffer[i]);
+	// 	if (colors[i]) //leaks
+	// 		free(colors[i]);
+	// 	i++;
+	// }
 }
 
 void	ft_set_directions(t_map *map, int i, int checker)
