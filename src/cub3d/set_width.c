@@ -45,7 +45,7 @@ void	ft_fill(t_map *map, int i, int len)
 		fill_len--;
 	}
 	new_line[j] = '\0';
-	free(map -> map[i]);
+	// free(map -> map[i]);
 	map -> map[i] = new_line;
 }
 
