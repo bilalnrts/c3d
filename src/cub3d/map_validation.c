@@ -70,7 +70,7 @@ void ft_check_walls(t_map *map, int i, int j)
 		direction++;
 	}
 	i = 0;
-	while (directions[i])
+	while (i < 4)
 	{
 		free(directions[i]);
 		i++;
