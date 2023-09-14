@@ -6,7 +6,7 @@
 /*   By: aderviso <aderviso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:44:04 by aderviso          #+#    #+#             */
-/*   Updated: 2023/09/14 18:46:53 by aderviso         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:29:55 by aderviso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,11 @@ void	ft_get_color(char *line, t_map *map);
 //map_validation
 int		**ft_give_directions(int i, t_map *map);
 void	ft_check_walls(t_map *map, int i, int j);
-void	ft_check_valid_map(t_map *map);
 void	ft_is_there_enter_in_map(t_map *map);
+void	ft_check_valid_map(t_map *map);
+int		ft_check_around(t_map *map, int **directions, int i, int j);
+void	ft_check_walls(t_map *map, int i, int j);
+int		**ft_give_directions(int i, t_map *map);
 void	ft_is_map_letters(t_map *map);
 
 //lines
