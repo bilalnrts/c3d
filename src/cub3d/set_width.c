@@ -22,6 +22,7 @@ void	ft_find_max_width(t_map *map)
 	}
 	map -> max_index = max_index;
 	map -> max_width = max_width;
+	map -> map_width = max_width;
 }
 
 void	ft_fill(t_map *map, int i, int len)

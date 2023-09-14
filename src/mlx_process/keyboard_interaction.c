@@ -40,6 +40,9 @@ int ft_close(int key, t_map *map)
 {
     (void)key;
     (void)map;
+    ft_free_all(map);
+	free(map);
+	system("leaks cub3d");
     exit(0);
     return (0);
 }

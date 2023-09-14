@@ -30,9 +30,9 @@ typedef struct s_img{
 	void	*window;
 	int		*image;
 	char	*data;
-	int		bpp; 
+	int		bpp;
 	int		sizeline;
-	int		endian; 
+	int		endian;
 }	t_img;
 
 typedef struct s_texture{
@@ -134,8 +134,14 @@ void	ft_find_start_map(t_map *map, int i, int checker);
 void	ft_set_player_position(t_map *map, char c, int x, int y);
 void	ft_check_player(t_map *map);
 void	ft_is_rgb(char *str, t_map *map);
-void	ft_get_color(char *line, t_map *map);
 void	ft_set_colors(t_map *map, char **buffer, char **colors);
+
+//set_textures
+char	ft_find_seperator(char *str, t_map *map);
+
+//set_colors
+void	ft_get_color(char *line, t_map *map);
+
 
 //map_validation
 int		**ft_give_directions(int i, t_map *map);

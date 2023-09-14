@@ -16,24 +16,7 @@ void	ft_init_map(t_map *map, char *path)
 	ft_create_map(map);
 }
 
-void	ft_init_player(t_map *map)
-{
-	t_player	*player;
 
-	player = map->player;
-	player->x = 0;
-	player->y = 0;
-	player->dir_x = 0;
-	player->dir_y = 0;
-	player->plane_x = 0;
-	player->plane_y = 0;
-	player->move_no = 0;
-	player->move_so = 0;
-	player->move_we = 0;
-	player->move_ea = 0;
-	player->turn = 0;
-	player->speed = 0.06;
-}
 
 void	ft_check_map_name(char *map_name)
 {
@@ -66,16 +49,16 @@ int main(int ac, char **av) {
 	ft_check_map_name(av[1]);
 	map = malloc(sizeof(t_map));
 	ft_init_map(map, av[1]);
-    map->map_width = 33;
-    map->map_height = 14;
 	ft_mlx_init(map);
 	mlx_hook(map->img.window, 2, 0, ft_press_key, map);
 	mlx_hook(map->img.window, 3, 0, ft_release_key, map);
 	mlx_hook(map->img.window, 17, 1L << 2, ft_close, map);
 	mlx_loop_hook(map->mlx, &ft_render_next_frame, map);
-	// free(map);
 	mlx_loop(map->mlx);
 	mlx_destroy_window(map->mlx, map->img.window);
 	mlx_destroy_image(map->mlx, map->img.image);
+	ft_free_all(map);
+	free(map);
+	system("leaks cub3d");
 	return (0);
 }
