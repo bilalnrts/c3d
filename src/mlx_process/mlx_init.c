@@ -31,13 +31,13 @@ void	ft_texture_init(t_map *map)
 	map->so = ft_calloc(sizeof(t_texture), 1);
 	map->we = ft_calloc(sizeof(t_texture), 1);
 	map->ea = ft_calloc(sizeof(t_texture), 1);
-	map->no->image = mlx_xpm_file_to_image(map->mlx, map->no_texture,
+	map->no->image = mlx_xpm_file_to_image(map->mlx, map->ea_texture,
 			&map->no->w, &map->no->h);
-	map->so->image = mlx_xpm_file_to_image(map->mlx, map->so_texture,
+	map->so->image = mlx_xpm_file_to_image(map->mlx, map->we_texture,
 			&map->so->w, &map->so->h);
-	map->we->image = mlx_xpm_file_to_image(map->mlx, map->we_texture,
+	map->we->image = mlx_xpm_file_to_image(map->mlx, map->so_texture,
 			&map->we->w, &map->we->h);
-	map->ea->image = mlx_xpm_file_to_image(map->mlx, map->ea_texture,
+	map->ea->image = mlx_xpm_file_to_image(map->mlx, map->no_texture,
 			&map->ea->w, &map->ea->h);
 	if (!map->no->image || !map->so->image
 		|| !map->we->image || !map->ea->image)

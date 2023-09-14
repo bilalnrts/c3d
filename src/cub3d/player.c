@@ -30,13 +30,13 @@ void	ft_set_player_position(t_map *map, char c, int x, int y)
 		exit(1);
 	}
 	if (c == 'N')
-		map -> start_position = NORTH;
-	else if (c == 'S')
-		map -> start_position = SOUTH;
-	else if (c == 'W')
 		map -> start_position = WEST;
-	else if (c == 'E')
+	else if (c == 'S')
 		map -> start_position = EAST;
+	else if (c == 'W')
+		map -> start_position = NORTH;
+	else if (c == 'E')
+		map -> start_position = SOUTH;
 	map->player->y = 1.0 * x + 0.5;
 	map->player->x = 1.0 * y + 0.5;
 }
