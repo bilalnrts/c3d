@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_validation.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aderviso <aderviso@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/14 20:04:39 by aderviso          #+#    #+#             */
+/*   Updated: 2023/09/14 20:28:33 by aderviso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3.h"
 
 void	ft_is_there_enter_in_map(t_map *map)
@@ -41,34 +53,42 @@ void	ft_check_valid_map(t_map *map)
 	ft_check_player(map);
 }
 
-void ft_check_walls(t_map *map, int i, int j)
+int	ft_check_around(t_map *map, int **directions, int i, int j)
 {
-	int checker;
-	int	**directions;
+	int	new_i;
+	int	new_j;
+	int	count;
 	int	direction;
 
-	if (i == 0 || i == map->map_height - 1 || j == 0 || j == ft_line_lenght(map->map[i]) - 1)
-	{
-		ft_printf("Error\nMap is not surrounded by walls");
-		ft_free_all(map);
-		exit(1);
-	}
-	directions = ft_give_directions(0, map);
+	count = 0;
 	direction = 0;
-	checker = 0;
 	while (direction < 4)
 	{
-		int newI = i + directions[direction][0];
-		int newJ = j + directions[direction][1];
-		while (map -> map[newI][newJ])
+		new_i = i + directions[direction][0];
+		new_j = j + directions[direction][1];
+		while (map -> map[new_i][new_j])
 		{
-			if ((map -> map[newI][newJ] == '1' && ++checker) || (map -> map[newI][newJ] == '2'))
+			if ((map -> map[new_i][new_j] == '1' && ++count)
+				|| (map -> map[new_i][new_j] == '2'))
 				break ;
-			newI += directions[direction][0];
-			newJ += directions[direction][1];
+			new_i += directions[direction][0];
+			new_j += directions[direction][1];
 		}
 		direction++;
 	}
+	return (count);
+}
+
+void	ft_check_walls(t_map *map, int i, int j)
+{
+	int	checker;
+	int	**directions;
+
+	if (i == 0 || i == map->map_height - 1 || j == 0
+		|| j == ft_line_lenght(map->map[i]) - 1)
+		ft_free_all_msg(map, "Error\nMap is not surrounded by walls");
+	directions = ft_give_directions(0, map);
+	checker = ft_check_around(map, directions, i, j);
 	i = 0;
 	while (i < 4)
 	{
@@ -77,33 +97,21 @@ void ft_check_walls(t_map *map, int i, int j)
 	}
 	free(directions);
 	if (checker != 4)
-	{
-		ft_printf("Error\nMap is not surrounded by walls");
-		ft_free_all(map);
-		exit(1);
-	}
+		ft_free_all_msg(map, "Error\nMap is not surrounded by walls");
 }
 
 int	**ft_give_directions(int i, t_map *map)
 {
-	int **directions;
+	int	**directions;
 
 	directions = (int **)malloc(4 * sizeof(int *));
 	if (!directions)
-	{
-		printf("Memory Error!\n");
-		ft_free_all(map);
-		exit(1);
-	}
+		ft_free_all_msg(map, "Memory Error!\n");
 	while (i < 4)
 	{
 		directions[i] = (int *)malloc(2 * sizeof(int));
 		if (directions[i] == NULL)
-		{
-			printf("Memory Error!\n");
-			ft_free_all(map);
-			exit(1);
-		}
+			ft_free_all_msg(map, "Memory Error!\n");
 		i++;
 	}
 	directions[0][0] = -1;
@@ -114,5 +122,5 @@ int	**ft_give_directions(int i, t_map *map)
 	directions[2][1] = -1;
 	directions[3][0] = 0;
 	directions[3][1] = 1;
-	return directions;
+	return (directions);
 }

@@ -6,7 +6,7 @@
 /*   By: aderviso <aderviso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:48:30 by aderviso          #+#    #+#             */
-/*   Updated: 2023/09/14 18:48:31 by aderviso         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:12:17 by aderviso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	ft_free_map(t_map *map)
 
 void	ft_free_all(t_map *map)
 {
-	printf("heree\n\n\n\n\n\n\n\n\n");
 	ft_free_map(map);
 	ft_free_buffer(map);
 	ft_free_textures(map);
@@ -88,5 +87,6 @@ void	ft_free_all_msg(t_map *map, char *str)
 	ft_free_map(map);
 	ft_free_buffer(map);
 	ft_free_textures(map);
+	free(map->player);
 	exit(1);
 }
