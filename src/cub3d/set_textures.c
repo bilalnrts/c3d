@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_textures.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aderviso <aderviso@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/14 19:39:54 by aderviso          #+#    #+#             */
+/*   Updated: 2023/09/14 19:42:20 by aderviso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3.h"
 
 char	ft_find_seperator(char *str, t_map *map)
@@ -12,32 +24,33 @@ char	ft_find_seperator(char *str, t_map *map)
 	else if (ft_strchr(new_line, '\t'))
 		seperetor = '\t';
 	else
-		ft_free_all_msg(map, "Error !\nThere is no seperetor in the F & C & Textures !\n");
+		ft_free_all_msg(map, "Error !\nThere is no seperetor\
+			in the F & C & Textures !\n");
 	free(new_line);
 	return (seperetor);
 }
 
 int	ft_is_texture(char *t)
 {
-	char	*newT;
-	int		returnVal;
+	char	*new_t;
+	int		return_val;
 
-	returnVal = 0;
-	newT = ft_strtrim(t, " \t");
-	if (!ft_strncmp(newT, "NO ", 3)) // if \t ???
-		returnVal = 1;
-	else if (!ft_strncmp(newT, "SO ", 3))
-		returnVal = 2;
-	else if (!ft_strncmp(newT, "WE ", 3))
-		returnVal = 3;
-	else if (!ft_strncmp(newT, "EA ", 3))
-		returnVal = 4;
-	else if (!ft_strncmp(newT, "F ", 2))
-		returnVal = 5;
-	else if (!ft_strncmp(newT, "C ", 2))
-		returnVal = 6;
-	free(newT);
-	return (returnVal);
+	return_val = 0;
+	new_t = ft_strtrim(t, " \t");
+	if (!ft_strncmp(new_t, "NO ", 3))
+		return_val = 1;
+	else if (!ft_strncmp(new_t, "SO ", 3))
+		return_val = 2;
+	else if (!ft_strncmp(new_t, "WE ", 3))
+		return_val = 3;
+	else if (!ft_strncmp(new_t, "EA ", 3))
+		return_val = 4;
+	else if (!ft_strncmp(new_t, "F ", 2))
+		return_val = 5;
+	else if (!ft_strncmp(new_t, "C ", 2))
+		return_val = 6;
+	free(new_t);
+	return (return_val);
 }
 
 char	*ft_get_texture(char *line, t_map *map)
@@ -79,9 +92,9 @@ void	ft_set_directions(t_map *map, int i, int checker)
 		else if (ft_is_texture(map -> buffer[i]) == 4 && ++checker)
 			map -> ea_texture = ft_get_texture(map -> buffer[i], map);
 		else if (ft_is_texture(map -> buffer[i]) == 5 && ++checker)
-			ft_get_color(map -> buffer[i], map);	//map -> f_color_rgb = ft_get_texture(map -> buffer[i]); ft_get_color(map -> buffer[i]);
+			ft_get_color(map -> buffer[i], map);
 		else if (ft_is_texture(map -> buffer[i]) == 6 && ++checker)
-			ft_get_color(map -> buffer[i], map);	//map -> c_color_rgb = ft_get_texture(map -> buffer[i]);
+			ft_get_color(map -> buffer[i], map);
 		i++;
 	}
 	if (checker != 6)

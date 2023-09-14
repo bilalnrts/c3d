@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aderviso <aderviso@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/14 19:52:13 by aderviso          #+#    #+#             */
+/*   Updated: 2023/09/14 19:52:56 by aderviso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3.h"
 
 void	ft_init_map(t_map *map, char *path)
 {
 	map->map = NULL;
 	map->buffer = NULL;
-	map->fd = open(path, O_RDONLY); //check if file exists
+	map->fd = open(path, O_RDONLY);
 	map->map_width = 0;
 	map->map_height = 0;
 	map->buffer_height = 0;
@@ -15,8 +27,6 @@ void	ft_init_map(t_map *map, char *path)
 	map -> start_position = UNKNOWN;
 	ft_create_map(map);
 }
-
-
 
 void	ft_check_map_name(char *map_name)
 {
@@ -30,7 +40,7 @@ void	ft_check_map_name(char *map_name)
 	}
 }
 
-int ft_render_next_frame(t_map *map)
+int	ft_render_next_frame(t_map *map)
 {
 	ft_move(map);
 	ft_raycast(map);
@@ -38,7 +48,8 @@ int ft_render_next_frame(t_map *map)
 	return (0);
 }
 
-int main(int ac, char **av) {
+int	main(int ac, char **av)
+{
 	t_map	*map;
 
 	if (ac != 2)
@@ -55,7 +66,6 @@ int main(int ac, char **av) {
 	mlx_hook(map->img.window, 17, 1L << 2, ft_close, map);
 	mlx_loop_hook(map->mlx, &ft_render_next_frame, map);
 	mlx_loop(map->mlx);
-	printf("hereasdsa\n");
 	ft_free_all(map);
 	free(map);
 	mlx_destroy_window(map->mlx, map->img.window);

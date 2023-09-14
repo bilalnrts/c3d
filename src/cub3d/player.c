@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aderviso <aderviso@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/14 19:50:13 by aderviso          #+#    #+#             */
+/*   Updated: 2023/09/14 19:50:28 by aderviso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3.h"
 
 void	ft_init_player(t_map *map)
@@ -52,7 +64,8 @@ void	ft_check_player(t_map *map)
 		j = 0;
 		while (map -> map[i][j])
 		{
-			if (map -> map[i][j] == 'N' || map -> map[i][j] == 'S' || map -> map[i][j] == 'W' || map -> map[i][j] == 'E')
+			if (map -> map[i][j] == 'N' || map -> map[i][j] == 'S'
+				|| map -> map[i][j] == 'W' || map -> map[i][j] == 'E')
 				ft_set_player_position(map, map -> map[i][j], i, j);
 			j++;
 		}
