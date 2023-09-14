@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_creation.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: binurtas <binurtas@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/14 19:25:38 by binurtas          #+#    #+#             */
+/*   Updated: 2023/09/14 20:58:52 by binurtas         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3.h"
 
 void	ft_get_map(t_map *map, int i)
@@ -15,7 +27,7 @@ void	ft_get_map(t_map *map, int i)
 	j = 0;
 	while (map -> buffer[i])
 	{
-		map -> map[j] = modificate_line(map -> buffer[i]);
+		map -> map[j] = modificate_line(map -> buffer[i], -1, 0);
 		i++;
 		j++;
 	}
@@ -43,39 +55,21 @@ char	*ft_seperate_line(char *line, char c)
 
 void	ft_find_start_map(t_map *map, int i, int checker)
 {
-	char	*line;
-
-	while (map -> buffer[i])
+	while (map -> buffer[i] && checker < 6)
 	{
-		if (checker == 6)
+		i = ft_start_map_helper(map -> buffer[i], &checker, i);
+		if (i == -1)
 			break ;
-		line = ft_strtrim(map -> buffer[i], " \t");
-		if (ft_strchr(line, ' '))
-			line = ft_seperate_line(line, ' ');
-		else if (ft_strchr(line, '\t'))
-			line = ft_seperate_line(line, '\t');
-		if (line && (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2) || !ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1)))
-			checker++;
-		else if (line && ft_strlen(line) > 1 && (ft_strncmp(line, "NO", 2) || ft_strncmp(line, "SO", 2) || ft_strncmp(line, "WE", 2) || ft_strncmp(line, "EA", 2) || ft_strncmp(line, "F", 1) || ft_strncmp(line, "C", 1)))
-		{
-			free(line);
-			break ;
-		}
-		free(line);
-		i++;
 	}
 	if (checker != 6)
-	{
-		ft_printf("Error\nThis map have invalid syntax");
-		ft_free_all(map);
-		exit(1);
-	}
-	while (map -> buffer[i] && ft_strlen(map -> buffer[i]) == 1 && map -> buffer[i][0] == '\n')
+		ft_free_all_msg(map, "Error\nThis map have invalid syntax");
+	while (map -> buffer[i] && ft_strlen(map -> buffer[i]) == 1
+		&& map -> buffer[i][0] == '\n')
 		i++;
 	ft_get_map(map, i);
 }
 
-void	ft_create_map(t_map *map) // There is no leak here !
+void	ft_create_map(t_map *map)
 {
 	char	*line;
 
@@ -91,7 +85,7 @@ void	ft_create_map(t_map *map) // There is no leak here !
 		ft_join_buffer(map, line);
 		free(line);
 		line = get_next_line(map->fd);
-	} // close fd
+	}
 	free(line);
 	ft_set_directions(map, 0, 0);
 	ft_find_start_map(map, 0, 0);
@@ -99,7 +93,7 @@ void	ft_create_map(t_map *map) // There is no leak here !
 	ft_set_width(map);
 }
 
-void	ft_join_buffer(t_map *map, char *line) // There is no leak here !
+void	ft_join_buffer(t_map *map, char *line)
 {
 	int		i;
 	char	**new_buffer;

@@ -53,6 +53,7 @@ int	ft_close(int key, t_map *map)
 	(void)map;
 	(void)key;
 	printf("cub3d closed succesfully!!");
+	system("leaks cub3d");
 	exit(0);
 	return (0);
 }

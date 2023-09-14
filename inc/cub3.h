@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderviso <aderviso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: binurtas <binurtas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:44:04 by aderviso          #+#    #+#             */
-/*   Updated: 2023/09/14 20:29:55 by aderviso         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:51:23 by binurtas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ void	ft_set_player_position(t_map *map, char c, int x, int y);
 void	ft_check_player(t_map *map);
 void	ft_is_rgb(char *str, t_map *map);
 void	ft_set_colors(t_map *map, char **buffer, char **colors);
+int		ft_start_map_helper(char *buffer, int *checker, int i);
+char	*ft_seperate_line(char *line, char c);
 
 //set_textures
 char	ft_find_seperator(char *str, t_map *map);
@@ -164,10 +166,11 @@ int		ft_check_around(t_map *map, int **directions, int i, int j);
 void	ft_check_walls(t_map *map, int i, int j);
 int		**ft_give_directions(int i, t_map *map);
 void	ft_is_map_letters(t_map *map);
+int		ft_start_map_checker(char *line);
 
 //lines
 int		ft_line_lenght(char *line);
-char	*modificate_line(char *line);
+char	*modificate_line(char *line, int i, int j);
 
 //free
 void	ft_free_map(t_map *map);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderviso <aderviso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: binurtas <binurtas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:52:13 by aderviso          #+#    #+#             */
-/*   Updated: 2023/09/14 19:52:56 by aderviso         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:46:24 by binurtas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ void	ft_init_map(t_map *map, char *path)
 	map->so_texture = NULL;
 	map->we_texture = NULL;
 	map->ea_texture = NULL;
+	map->no = NULL;
+	map->so = NULL;
+	map->ea = NULL;
+	map->we = NULL;
 	map -> start_position = UNKNOWN;
 	ft_create_map(map);
 }
