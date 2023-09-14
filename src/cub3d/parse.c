@@ -20,6 +20,8 @@ void	ft_init_map(t_map *map, char *path)
 	map->map_width = 0;
 	map->map_height = 0;
 	map->buffer_height = 0;
+	map->f_color_rgb = 0;
+	map->c_color_rgb = 0;
 	map->no_texture = NULL;
 	map->so_texture = NULL;
 	map->we_texture = NULL;

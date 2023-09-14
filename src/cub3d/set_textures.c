@@ -37,17 +37,17 @@ int	ft_is_texture(char *t)
 
 	return_val = 0;
 	new_t = ft_strtrim(t, " \t");
-	if (!ft_strncmp(new_t, "NO ", 3))
+	if (!ft_strncmp(new_t, "NO ", 3) || !ft_strncmp(new_t, "NO	", 3))
 		return_val = 1;
-	else if (!ft_strncmp(new_t, "SO ", 3))
+	else if (!ft_strncmp(new_t, "SO ", 3) || !ft_strncmp(new_t, "SO	", 3))
 		return_val = 2;
-	else if (!ft_strncmp(new_t, "WE ", 3))
+	else if (!ft_strncmp(new_t, "WE ", 3) || !ft_strncmp(new_t, "WE	", 3))
 		return_val = 3;
-	else if (!ft_strncmp(new_t, "EA ", 3))
+	else if (!ft_strncmp(new_t, "EA ", 3) || !ft_strncmp(new_t, "EA	", 3))
 		return_val = 4;
-	else if (!ft_strncmp(new_t, "F ", 2))
+	else if (!ft_strncmp(new_t, "F ", 2) || !ft_strncmp(new_t, "F	", 2))
 		return_val = 5;
-	else if (!ft_strncmp(new_t, "C ", 2))
+	else if (!ft_strncmp(new_t, "C ", 2) || !ft_strncmp(new_t, "C	", 2))
 		return_val = 6;
 	free(new_t);
 	return (return_val);
@@ -64,9 +64,11 @@ char	*ft_get_texture(char *line, t_map *map)
 	buffer = NULL;
 	new_line = ft_strtrim(line, " \t\n");
 	buffer = ft_split(new_line, ft_find_seperator(new_line, map));
+	free(new_line);
 	if (buffer && buffer[1])
 	{
-		texture = ft_strdup(buffer[1]);
+		new_line = ft_strtrim(buffer[1], " \t");
+		texture = ft_strdup(new_line);
 		while (buffer[i])
 		{
 			free(buffer[i]);
@@ -77,6 +79,14 @@ char	*ft_get_texture(char *line, t_map *map)
 		return (texture);
 	}
 	return (NULL);
+}
+
+int	ft_check_texture_is_full(t_map *map)
+{
+	if (map->c_color_rgb && map->f_color_rgb && map->no_texture
+		&& map->so_texture && map->we_texture && map->ea_texture)
+		return (1);
+	return (0);
 }
 
 void	ft_set_directions(t_map *map, int i, int checker)
@@ -97,10 +107,11 @@ void	ft_set_directions(t_map *map, int i, int checker)
 			ft_get_color(map -> buffer[i], map);
 		i++;
 	}
-	if (checker != 6)
+	if (!ft_check_texture_is_full(map) || checker != 6)
 	{
-		ft_printf("Error\nWrong number of directions or FC colors");
-		ft_free_all(map);
+		ft_printf("Error\nWrong number of directions or F&C colors");
+		ft_free_buffer(map);
+		ft_free_textures(map);
 		exit(1);
 	}
 	map -> buffer_height = i;
