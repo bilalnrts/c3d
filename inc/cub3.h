@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aderviso <aderviso@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/14 18:44:04 by aderviso          #+#    #+#             */
+/*   Updated: 2023/09/14 18:46:53 by aderviso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3_H
 # define CUB3_H
 
@@ -65,59 +77,60 @@ typedef struct player
 	int		move_we;
 	int		move_ea;
 	int		turn;
-	double 	speed;
+	double	speed;
 }	t_player;
 
 typedef struct s_map
 {
-	void	*mlx;
-	t_img	img;
-	t_texture	*no;
-	t_texture	*so;
-	t_texture	*we;
-	t_texture	*ea;
-	t_player	*player;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	perp_wall_dist;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	int		side;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-	double 	wall_x;
-	double	step;
+	void				*mlx;
+	t_img				img;
+	t_texture			*no;
+	t_texture			*so;
+	t_texture			*we;
+	t_texture			*ea;
+	t_player			*player;
+	double				side_dist_x;
+	double				side_dist_y;
+	double				delta_dist_x;
+	double				delta_dist_y;
+	double				perp_wall_dist;
+	int					step_x;
+	int					step_y;
+	int					hit;
+	int					side;
+	int					line_height;
+	int					draw_start;
+	int					draw_end;
+	double				wall_x;
+	double				step;
 	unsigned int		color;
-	double		tex_x;
-	int		tex_y;
-	int		tex_width;
-	int		tex_height;
-	double		tex_pos;
-	int		tex_step;
-	char	**map;
-	char	**buffer;
-	char	*no_texture;
-	char	*so_texture;
-	char	*we_texture;
-	char	*ea_texture;
-	int		f_color_rgb;
-	int		c_color_rgb;
+	double				tex_x;
+	int					tex_y;
+	int					tex_width;
+	int					tex_height;
+	double				tex_pos;
+	int					tex_step;
+	char				**map;
+	char				**buffer;
+	char				*no_texture;
+	char				*so_texture;
+	char				*we_texture;
+	char				*ea_texture;
+	int					f_color_rgb;
+	int					c_color_rgb;
 	enum e_direction	start_position;
-	int		map_width;
-	int		map_height;
-	int		max_width;
-	int		max_index;
-	int		buffer_height;
-	int		fd;
+	int					map_width;
+	int					map_height;
+	int					max_width;
+	int					max_index;
+	int					buffer_height;
+	int					fd;
 }				t_map;
 
 //mlx_init
 void	ft_mlx_init(t_map *map);
 void	ft_texture_init(t_map *map);
+void	ft_texture_get_addr(t_map *map);
 void	ft_player_direction(t_map *map);
 
 //keyboard_interaction
@@ -141,7 +154,6 @@ char	ft_find_seperator(char *str, t_map *map);
 
 //set_colors
 void	ft_get_color(char *line, t_map *map);
-
 
 //map_validation
 int		**ft_give_directions(int i, t_map *map);
@@ -181,11 +193,11 @@ void	ft_turn(t_map *map, int direction);
 void	ft_move(t_map *map);
 
 //raycast
-void    ft_init_raycast(t_map *map, int x);
-void    ft_calculate_step(t_map *map);
-void    ft_calculate_side_dist(t_map *map);
-void    ft_calculate_draw_start_end(t_map *map);
-void    ft_draw_texture(t_map *map, int x);
-void    ft_raycast(t_map *map);
+void	ft_init_raycast(t_map *map, int x);
+void	ft_calculate_step(t_map *map);
+void	ft_calculate_side_dist(t_map *map);
+void	ft_calculate_draw_start_end(t_map *map);
+void	ft_draw_texture(t_map *map, int x);
+void	ft_raycast(t_map *map);
 
 #endif
