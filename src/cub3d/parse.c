@@ -55,10 +55,10 @@ int main(int ac, char **av) {
 	mlx_hook(map->img.window, 17, 1L << 2, ft_close, map);
 	mlx_loop_hook(map->mlx, &ft_render_next_frame, map);
 	mlx_loop(map->mlx);
-	mlx_destroy_window(map->mlx, map->img.window);
-	mlx_destroy_image(map->mlx, map->img.image);
+	printf("hereasdsa\n");
 	ft_free_all(map);
 	free(map);
-	system("leaks cub3d");
+	mlx_destroy_window(map->mlx, map->img.window);
+	mlx_destroy_image(map->mlx, map->img.image);
 	return (0);
 }

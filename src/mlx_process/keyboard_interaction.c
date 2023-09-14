@@ -38,11 +38,9 @@ int ft_release_key(int key, t_map *map)
 
 int ft_close(int key, t_map *map)
 {
-    (void)key;
     (void)map;
-    ft_free_all(map);
-	free(map);
-	system("leaks cub3d");
+    (void)key;
+    printf("cub3d closed succesfully!!");
     exit(0);
     return (0);
 }

@@ -10,10 +10,14 @@ void	ft_free_textures(t_map *map)
 		free(map -> we_texture);
 	if (map -> ea_texture)
 		free(map -> ea_texture);
-	// if (map -> f_color_rgb)
-	// 	free(map -> f_color_rgb);
-	// if (map -> c_color_rgb)
-	// 	free(map -> c_color_rgb);
+	if (map->no)
+		free(map->no);
+	if (map->so)
+		free(map->so);
+	if (map->ea)
+		free(map->ea);
+	if (map->we)
+		free(map->we);
 	if (map -> fd && map -> fd != -1)
 		close(map -> fd);
 }
@@ -58,18 +62,19 @@ void	ft_free_map(t_map *map)
 
 void	ft_free_all(t_map *map)
 {
-	(void)map;
+	printf("heree\n\n\n\n\n\n\n\n\n");
 	ft_free_map(map);
 	ft_free_buffer(map);
 	ft_free_textures(map);
+	free(map->player);
 }
 
 void	ft_free_all_msg(t_map *map, char *str)
 {
 	printf("%s", str);
 	(void)map;
-	// ft_free_map(map);
-	// ft_free_buffer(map);
-	// ft_free_textures(map);
+	ft_free_map(map);
+	ft_free_buffer(map);
+	ft_free_textures(map);
 	exit(1);
 }

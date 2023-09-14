@@ -17,13 +17,15 @@ void ft_texture_init(t_map *map)
     map->so = ft_calloc(sizeof(t_texture), 1);
     map->we = ft_calloc(sizeof(t_texture), 1);
     map->ea = ft_calloc(sizeof(t_texture), 1);
-    map->no->image = mlx_xpm_file_to_image(map->mlx, "./textures/wall1.xpm", &map->no->w, &map->no->h);
-    map->so->image = mlx_xpm_file_to_image(map->mlx, "./textures/wall2.xpm", &map->so->w, &map->so->h);
-    map->we->image = mlx_xpm_file_to_image(map->mlx, "./textures/wall3.xpm", &map->we->w, &map->we->h);
-    map->ea->image = mlx_xpm_file_to_image(map->mlx, "./textures/wall4.xpm", &map->ea->w, &map->ea->h);
+    map->no->image = mlx_xpm_file_to_image(map->mlx, map->no_texture, &map->no->w, &map->no->h);
+    map->so->image = mlx_xpm_file_to_image(map->mlx, map->so_texture, &map->so->w, &map->so->h);
+    map->we->image = mlx_xpm_file_to_image(map->mlx, map->we_texture, &map->we->w, &map->we->h);
+    map->ea->image = mlx_xpm_file_to_image(map->mlx, map->ea_texture, &map->ea->w, &map->ea->h);
 	if (!map->no->image || !map->so->image || !map->we->image || !map->ea->image)
     {
-        printf("wrong texture files!\n"); // leakleri bitir
+        printf("wrong texture files!\n");
+        ft_free_all(map);
+        free(map);
 		exit(1);
     }
     map->no->data = mlx_get_data_addr(map->no->image, &map->no->bpp, &map->no->sizeline, &map->no->endian);
