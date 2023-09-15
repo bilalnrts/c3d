@@ -63,7 +63,7 @@ char	*ft_get_texture(char *line, t_map *map)
 	i = 0;
 	buffer = NULL;
 	new_line = ft_strtrim(line, " \t\n");
-	buffer = ft_split(new_line, ft_find_seperator(new_line, map));
+	buffer = ft_texture_split(new_line, ft_find_seperator(new_line, map));
 	free(new_line);
 	if (buffer && buffer[1])
 	{
@@ -102,9 +102,9 @@ void	ft_set_directions(t_map *map, int i, int checker)
 		else if (ft_is_texture(map -> buffer[i]) == 4 && ++checker)
 			map -> ea_texture = ft_get_texture(map -> buffer[i], map);
 		else if (ft_is_texture(map -> buffer[i]) == 5 && ++checker)
-			ft_get_color(map -> buffer[i], map);
+			ft_get_color(map -> buffer[i], map, -1);
 		else if (ft_is_texture(map -> buffer[i]) == 6 && ++checker)
-			ft_get_color(map -> buffer[i], map);
+			ft_get_color(map -> buffer[i], map, -1);
 		i++;
 	}
 	if (!ft_check_texture_is_full(map) || checker != 6)

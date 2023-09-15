@@ -155,7 +155,8 @@ char	*ft_seperate_line(char *line, char c);
 char	ft_find_seperator(char *str, t_map *map);
 
 //set_colors
-void	ft_get_color(char *line, t_map *map);
+void	ft_get_color(char *line, t_map *map, int i);
+char	**ft_texture_split(char *str, char c);
 
 //map_validation
 int		**ft_give_directions(int i, t_map *map);

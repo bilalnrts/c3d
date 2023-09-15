@@ -34,21 +34,24 @@ void	ft_is_rgb(char *str, t_map *map)
 		else
 			ft_free_all_msg(map, "Error !\nColors must be numbers !\n");
 	}
+	i = ft_atoi(str);
+	if (i > 255 || i < 0)
+		ft_free_all_msg(map, "Error !\nColors must be in the range 0-255 !\n");
 }
 
-void	ft_get_color(char *line, t_map *map)
+void	ft_get_color(char *line, t_map *map, int i)
 {
 	char	**buffer;
 	char	**colors;
 	char	*newline;
-	int		i;
 
-	i = -1;
 	newline = ft_strtrim(line, " \n\t");
-	buffer = ft_split(newline, ft_find_seperator(newline, map));
+	buffer = ft_texture_split(newline, ft_find_seperator(newline, map));
+	free(newline);
 	if (buffer && buffer[1])
 	{
-		colors = ft_split(buffer[1], ',');
+		newline = ft_strtrim(buffer[1], " \t");
+		colors = ft_split(newline, ',');
 		while (colors[++i])
 			ft_is_rgb(colors[i], map);
 		if (i != 3)
@@ -57,10 +60,9 @@ void	ft_get_color(char *line, t_map *map)
 		while (--i >= 0 && colors[i])
 			free(colors[i]);
 		free(colors);
+		free(newline);
 	}
-	i = -1;
 	while (buffer[++i])
 		free(buffer[i]);
 	free(buffer);
-	free(newline);
 }

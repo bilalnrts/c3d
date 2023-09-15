@@ -15,7 +15,7 @@ MAND_NAMES	=	parse map_creation map_validation set_width \
 				map_validation2 player set_colors set_textures
 
 UTIL_DIR	=	util/
-UTIL_NAMES	=	lines free
+UTIL_NAMES	=	lines free texture_split
 
 MLX_DIR		=	mlx_process/
 MLX_NAMES	=	keyboard_interaction mlx_init
