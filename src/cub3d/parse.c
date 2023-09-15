@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: binurtas <binurtas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aderviso <aderviso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:52:13 by aderviso          #+#    #+#             */
-/*   Updated: 2023/09/15 17:27:53 by binurtas         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:05:51 by aderviso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	ft_check_map_name(char *str)
 
 	map_name = ft_check_map_name_helper(str);
 	map_name_lenght = ft_strlen(map_name);
-	if (ft_strncmp(map_name + map_name_lenght - 4, ".cub", 4) || map_name_lenght < 5)
+	if (ft_strncmp(map_name + map_name_lenght - 4, ".cub", 4)
+		|| map_name_lenght < 5)
 	{
 		free(map_name);
 		printf("Error !\nThe map name is not valid !\n");
