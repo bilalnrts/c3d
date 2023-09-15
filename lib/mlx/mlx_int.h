@@ -52,7 +52,7 @@ typedef struct	glsl_info_s
 
 typedef struct	mlx_img_list_s
 {
-  int			width; //
+  int			width;
   int			height;
   char			*buffer;
   GLfloat		vertexes[8];

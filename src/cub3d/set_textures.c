@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: binurtas <binurtas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aderviso <aderviso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:39:54 by aderviso          #+#    #+#             */
-/*   Updated: 2023/09/15 17:33:41 by binurtas         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:33:56 by aderviso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,30 @@ char	ft_find_seperator(char *str, t_map *map)
 	return (seperetor);
 }
 
-int	ft_is_texture(char *t)
+int	ft_is_texture(char *t, t_map *map)
 {
 	char	*new_t;
 	int		return_val;
 
 	return_val = 0;
 	new_t = ft_strtrim(t, " \t");
-	if (!ft_strncmp(new_t, "NO ", 3) || !ft_strncmp(new_t, "NO	", 3))
+	if ((!ft_strncmp(new_t, "NO ", 3) || !ft_strncmp(new_t, "NO	", 3))
+		&& !map->no_texture)
 		return_val = 1;
-	else if (!ft_strncmp(new_t, "SO ", 3) || !ft_strncmp(new_t, "SO	", 3))
+	else if ((!ft_strncmp(new_t, "SO ", 3) || !ft_strncmp(new_t, "SO	", 3))
+		&& !map->so_texture)
 		return_val = 2;
-	else if (!ft_strncmp(new_t, "WE ", 3) || !ft_strncmp(new_t, "WE	", 3))
+	else if ((!ft_strncmp(new_t, "WE ", 3) || !ft_strncmp(new_t, "WE	", 3))
+		&& !map->we_texture)
 		return_val = 3;
-	else if (!ft_strncmp(new_t, "EA ", 3) || !ft_strncmp(new_t, "EA	", 3))
+	else if ((!ft_strncmp(new_t, "EA ", 3) || !ft_strncmp(new_t, "EA	", 3))
+		&& !map->ea_texture)
 		return_val = 4;
-	else if (!ft_strncmp(new_t, "F ", 2) || !ft_strncmp(new_t, "F	", 2))
+	else if ((!ft_strncmp(new_t, "F ", 2) || !ft_strncmp(new_t, "F	", 2))
+		&& map->f_color_rgb == -1)
 		return_val = 5;
-	else if (!ft_strncmp(new_t, "C ", 2) || !ft_strncmp(new_t, "C	", 2))
+	else if ((!ft_strncmp(new_t, "C ", 2) || !ft_strncmp(new_t, "C	", 2))
+		&& map->c_color_rgb == -1)
 		return_val = 6;
 	free(new_t);
 	return (return_val);
@@ -93,17 +99,17 @@ void	ft_set_directions(t_map *map, int i, int checker)
 {
 	while (map -> buffer[i])
 	{
-		if (ft_is_texture(map -> buffer[i]) == 1 && ++checker)
+		if (ft_is_texture(map -> buffer[i], map) == 1 && ++checker)
 			map -> no_texture = ft_get_texture(map -> buffer[i], map);
-		else if (ft_is_texture(map -> buffer[i]) == 2 && ++checker)
+		else if (ft_is_texture(map -> buffer[i], map) == 2 && ++checker)
 			map -> so_texture = ft_get_texture(map -> buffer[i], map);
-		else if (ft_is_texture(map -> buffer[i]) == 3 && ++checker)
+		else if (ft_is_texture(map -> buffer[i], map) == 3 && ++checker)
 			map -> we_texture = ft_get_texture(map -> buffer[i], map);
-		else if (ft_is_texture(map -> buffer[i]) == 4 && ++checker)
+		else if (ft_is_texture(map -> buffer[i], map) == 4 && ++checker)
 			map -> ea_texture = ft_get_texture(map -> buffer[i], map);
-		else if (ft_is_texture(map -> buffer[i]) == 5 && ++checker)
+		else if (ft_is_texture(map -> buffer[i], map) == 5 && ++checker)
 			ft_get_color(map -> buffer[i], map, -1);
-		else if (ft_is_texture(map -> buffer[i]) == 6 && ++checker)
+		else if (ft_is_texture(map -> buffer[i], map) == 6 && ++checker)
 			ft_get_color(map -> buffer[i], map, -1);
 		i++;
 	}
