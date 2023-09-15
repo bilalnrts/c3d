@@ -11,7 +11,7 @@ RM			=	rm -f
 OPENGL		=	-framework OpenGL -framework AppKit
 
 CUB_DIR		=	cub3d/
-MAND_NAMES	=	parse map_creation map_validation set_width \
+MAND_NAMES	=	parse map_creation map_creation2 map_validation set_width \
 				map_validation2 player set_colors set_textures
 
 UTIL_DIR	=	util/

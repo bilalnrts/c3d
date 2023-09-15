@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: binurtas <binurtas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aderviso <aderviso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:44:04 by aderviso          #+#    #+#             */
-/*   Updated: 2023/09/14 20:51:23 by binurtas         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:00:40 by aderviso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ void	ft_is_rgb(char *str, t_map *map);
 void	ft_set_colors(t_map *map, char **buffer, char **colors);
 int		ft_start_map_helper(char *buffer, int *checker, int i);
 char	*ft_seperate_line(char *line, char c);
+void	ft_check_other_letter(t_map *map, int i);
 
 //set_textures
 char	ft_find_seperator(char *str, t_map *map);
