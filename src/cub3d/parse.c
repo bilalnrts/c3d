@@ -6,7 +6,7 @@
 /*   By: binurtas <binurtas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:52:13 by aderviso          #+#    #+#             */
-/*   Updated: 2023/09/14 20:46:24 by binurtas         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:27:53 by binurtas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	ft_init_map(t_map *map, char *path)
 	map->map_width = 0;
 	map->map_height = 0;
 	map->buffer_height = 0;
-	map->f_color_rgb = 0;
-	map->c_color_rgb = 0;
+	map->f_color_rgb = -1;
+	map->c_color_rgb = -1;
 	map->no_texture = NULL;
 	map->so_texture = NULL;
 	map->we_texture = NULL;

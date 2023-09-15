@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderviso <aderviso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: binurtas <binurtas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:39:54 by aderviso          #+#    #+#             */
-/*   Updated: 2023/09/14 19:42:20 by aderviso         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:33:41 by binurtas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*ft_get_texture(char *line, t_map *map)
 
 int	ft_check_texture_is_full(t_map *map)
 {
-	if (map->c_color_rgb && map->f_color_rgb && map->no_texture
+	if (map->c_color_rgb != -1 && map->f_color_rgb != -1 && map->no_texture
 		&& map->so_texture && map->we_texture && map->ea_texture)
 		return (1);
 	return (0);
