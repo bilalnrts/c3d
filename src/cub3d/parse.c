@@ -34,16 +34,46 @@ void	ft_init_map(t_map *map, char *path)
 	ft_create_map(map);
 }
 
-void	ft_check_map_name(char *map_name)
+char	*ft_check_map_name_helper(char *str)
 {
-	int	map_name_lenght;
+	char	*map_name;
+	char	**buffer;
+	int		i;
 
-	map_name_lenght = ft_strlen(map_name);
-	if (ft_strncmp(map_name + map_name_lenght - 4, ".cub", 4))
+	buffer = NULL;
+	i = 0;
+	if (ft_strchr(str, '/'))
 	{
-		printf("The map name is not valid !\nError !");
+		buffer = ft_split(str, '/');
+		while (buffer[i])
+			i++;
+		map_name = ft_strdup(buffer[i - 1]);
+	}
+	else
+		map_name = ft_strdup(str);
+	if (buffer != NULL)
+	{
+		while (--i >= 0)
+			free(buffer[i]);
+		free(buffer);
+	}
+	return (map_name);
+}
+
+void	ft_check_map_name(char *str)
+{
+	char	*map_name;
+	int		map_name_lenght;
+
+	map_name = ft_check_map_name_helper(str);
+	map_name_lenght = ft_strlen(map_name);
+	if (ft_strncmp(map_name + map_name_lenght - 4, ".cub", 4) || map_name_lenght < 5)
+	{
+		free(map_name);
+		printf("Error !\nThe map name is not valid !\n");
 		exit(1);
 	}
+	free(map_name);
 }
 
 int	ft_render_next_frame(t_map *map)
